@@ -1,4 +1,5 @@
-// http://chimera.labs.oreilly.com/books/1234000001808/ch02.html#I_sect12_d1e1886 
+// http://chimera.labs.oreilly.com/books/1234000001808/ch02.html#I_sect12_d1e1886
+
 var net = require('net');
 
 var chatServer = net.createServer(),
@@ -14,11 +15,16 @@ chatServer.on('connection', function(client){
 		broadcast(data, client);
 	});
 
+	client.on('end', function () {
+		// коли клієт відключився видаляємо його з масиву clientList
+		clientList.splice(clientList.indexOf(client), 1);
+	});
+
 	function broadcast(message, client){
 		for (var i = 0; i < clientList.length; i++) {
 			if (client !== clientList[i]) {
 				// write this data to all clients 
-				clientList[i].write(client.name + ' says: ' + message + '\n');
+				clientList[i].write(client.name + ' says: ' + message);
 			}
 
 		}
