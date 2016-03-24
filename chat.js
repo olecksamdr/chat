@@ -1,4 +1,4 @@
-// http://chimera.labs.oreilly.com/books/1234000001808/ch02.html#I_sect12_d1e1886
+
 
 var net = require('net');
 
